@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhanqq2010.github.io","root":"/blog/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="#1.充值元宝在D:\MirServer\Mir200\Envir查看MerChant.txt ..........省略很多不相关的内容  ;BEGIN 元宝 元宝充值    3    345    338    元宝充值    0    12    0    0    0    0    0 元宝充值    0    330    264    元宝充值    0    12    0    0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="传奇私服搭建(二) 服务器的配置修改">
+<meta property="og:url" content="https://zhanqq2010.github.io/blog/2022/01/02/%E4%BC%A0%E5%A5%87%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E4%BA%8C-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BF%AE%E6%94%B9/index.html">
+<meta property="og:site_name" content="Zhanqq&#39;s Notes">
+<meta property="og:description" content="#1.充值元宝在D:\MirServer\Mir200\Envir查看MerChant.txt ..........省略很多不相关的内容  ;BEGIN 元宝 元宝充值    3    345    338    元宝充值    0    12    0    0    0    0    0 元宝充值    0    330    264    元宝充值    0    12    0    0">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-01T16:19:08.000Z">
+<meta property="article:modified_time" content="2022-01-01T17:23:18.632Z">
+<meta property="article:author" content="占前钱">
+<meta property="article:tag" content="传奇">
+<meta property="article:tag" content="私服">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zhanqq2010.github.io/blog/2022/01/02/%E4%BC%A0%E5%A5%87%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E4%BA%8C-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BF%AE%E6%94%B9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>传奇私服搭建(二) 服务器的配置修改 | Zhanqq's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zhanqq's Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">啦啦啦</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zhanqq2010.github.io/blog/2022/01/02/%E4%BC%A0%E5%A5%87%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E4%BA%8C-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BF%AE%E6%94%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.png">
+      <meta itemprop="name" content="占前钱">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhanqq's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          传奇私服搭建(二) 服务器的配置修改
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-02 00:19:08 / 修改时间：01:23:18" itemprop="dateCreated datePublished" datetime="2022-01-02T00:19:08+08:00">2022-01-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E4%BC%A0%E5%A5%87%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">传奇技术</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>#1.充值元宝<br>在D:\MirServer\Mir200\Envir查看MerChant.txt</p>
+<pre><code>..........省略很多不相关的内容
+
+;BEGIN 元宝
+元宝充值    3    345    338    元宝充值    0    12    0    0    0    0    0
+元宝充值    0    330    264    元宝充值    0    12    0    0    0    0    0
+元宝充值    ddkq    12    27    元宝充值    0    12    0    0    0    0    0
+;END 元宝
+</code></pre>
+<p><strong>元宝充值    3</strong>代表的就是盟重的那个充值使者NPC他的名字是后面对应的<strong>元宝充值</strong></p>
+<p>然后我们去 <strong>D:\MirServer\Mir200\Envir\Market_Def</strong>文件夹找到<strong>元宝充值-3.txt</strong></p>
+<pre><code>[@main]
+&lt;$USERNAME&gt;您好,欢迎来到&lt;$SERVERNAME&gt;,很高兴为您服务\
+您当前持有:&lt;$GAMEGOLD&gt;元宝\
+①本系统支持网上银行、手机充值卡、各类游戏点卡。\
+②请在充值5分钟后在本NPC处领取\
+③当前充值比例为1:10\
+\
+&lt;领取/@领取&gt;┆&lt;充值/@充值&gt;┆&lt;退出/@exit&gt;\
+[@领取]
+#CALL [\充值元宝\元宝\元宝.txt] @领取元宝
+
+..........省略很多不相关的内容
+</code></pre>
+<p>可以看到是在<strong>\充值元宝\元宝\元宝.txt</strong>的**@领取元宝**</p>
+<p>我们找到<strong>D:\MirServer\Mir200\Envir\QuestDiary\充值元宝\元宝</strong>在对应的元宝数的txt文件中填入要充值的游戏账号，如果有赠送啥的也是类似的添加</p>
+<p>#2.添加商城的物品</p>
+<p>在M2server中的  查看 -&gt; 列表信息 -&gt; 商铺列表</p>
+<p>#3.添加回收命令<br>我的是实现**@回收**调出”装备兑换”对话框</p>
+<p>在<strong>C:\MirServer\Mir200\Envir</strong>(因为我是换成了C盘，传奇私服搭建(一) 服务器的基本搭建,默认是D盘)目录下找到<strong>UserCmds.txt</strong></p>
+<pre><code>假人后台    0
+充值    2
+喊    8
+红包雨88    9
+传1    6
+传    5
+回收    3
+</code></pre>
+<p>这个回收    3是我添加的 <strong>注意这个数字别重复，下面会用到</strong></p>
+<p>找到系统原来的文件C:\MirServer\Mir200\Envir\Market_Def\新增仿照\装备兑换-3.txt</p>
+<pre><code>[@main]
+#ACT
+OPENMERCHANTBIGDLG 9 66 0 0 0 0 1 433 0 0
+
+#If
+#SAY
+尊敬的【&lt;$USERNAME&gt;】您好！\
+您可以利用装备来兑换相对应的积分，不同的积分有不同的作用\
+沃玛积分可以用来兑换&lt;  金色祝福油&gt;，&lt;您目前的沃玛积分为/FCOLOR=254&gt;：【&lt;$STR(U3)&gt;】\
+祖玛积分可以用来兑换&lt;极品祖玛装备&gt;，&lt;您目前的祖玛积分为/FCOLOR=253&gt;：【&lt;$STR(U4)&gt;】\
+赤月积分可以用来兑换&lt;极品赤月装备&gt;，&lt;您目前的赤月积分为/FCOLOR=250&gt;：【&lt;$STR(U5)&gt;】\
+\ \
+&lt;沃玛→/FCOLOR=120&gt; &lt;沃玛装备兑换积分/@沃玛装备兑换积分&gt;  &lt;沃玛积分换祝福油/@沃玛积分换祝福油&gt; &lt;沃玛积分兑换虎卫卷/@沃玛积分兑换虎卫卷&gt;\
+&lt;祖玛→/FCOLOR=120&gt; &lt;祖玛装备兑换积分/@祖玛装备兑换积分&gt;  &lt;祖玛积分兑换卷/@祖玛积分兑换卷&gt;  &lt;极品祖玛兑换/@极品祖玛兑换&gt;  &lt;赤月兑换/@普通赤月兑换&gt;\
+;&lt;祖玛→/FCOLOR=120&gt; &lt;祖玛装备兑换积分/@祖玛装备兑换积分&gt;  &lt;祖玛积分兑换卷/@祖玛积分兑换卷&gt;  &lt;极品祖玛兑换/@极品祖玛兑换&gt;  &lt;天之赤月兑换/@天之赤月兑换&gt;\
+&lt;赤月→/FCOLOR=120&gt; &lt;赤月装备兑换积分/@赤月装备兑换积分&gt;  &lt;赤月积分兑换卷/@赤月积分兑换卷&gt;  &lt;极品赤月兑换/@极品赤月兑换&gt;\
+&lt;注意：祖玛积分领取兑换卷有几率获得普通赤月兑换卷&gt;\
+\ \
+   『&lt;升级幸运项链/@升级幸运项链&gt;』  『&lt;装备回收金币/@装备回收金币&gt;』  『&lt;装备回收声望/@装备回收声望&gt;』  『&lt;互换沃玛积分/@互换沃玛积分&gt;』\
+
+..........省略很多不相关的内容
+
+#ELSEACT
+SENDMSG 7 〖提示〗你身上没有可回收装备！
+GOTO @装备回收声望
+</code></pre>
+<p>复制一份到</p>
+<p>C:\MirServer\Mir200\Envir\QuestDiary\服务\装备兑换.txt</p>
+<pre><code>[@main]
+&#123;
+
+#ACT
+OPENMERCHANTBIGDLG 9 66 0 0 0 0 1 433 0 0
+
+#If
+#SAY
+尊敬的【&lt;$USERNAME&gt;】您好！\
+您可以利用装备来兑换相对应的积分，不同的积分有不同的作用\
+沃玛积分可以用来兑换&lt;  金色祝福油&gt;，&lt;您目前的沃玛积分为/FCOLOR=254&gt;：【&lt;$STR(U3)&gt;】\
+祖玛积分可以用来兑换&lt;极品祖玛装备&gt;，&lt;您目前的祖玛积分为/FCOLOR=253&gt;：【&lt;$STR(U4)&gt;】\
+赤月积分可以用来兑换&lt;极品赤月装备&gt;，&lt;您目前的赤月积分为/FCOLOR=250&gt;：【&lt;$STR(U5)&gt;】\
+\ \
+&lt;沃玛→/FCOLOR=120&gt; &lt;沃玛装备兑换积分/@沃玛装备兑换积分&gt;  &lt;沃玛积分换祝福油/@沃玛积分换祝福油&gt; &lt;沃玛积分兑换虎卫卷/@沃玛积分兑换虎卫卷&gt;\
+&lt;祖玛→/FCOLOR=120&gt; &lt;祖玛装备兑换积分/@祖玛装备兑换积分&gt;  &lt;祖玛积分兑换卷/@祖玛积分兑换卷&gt;  &lt;极品祖玛兑换/@极品祖玛兑换&gt;  &lt;赤月兑换/@普通赤月兑换&gt;\
+;&lt;祖玛→/FCOLOR=120&gt; &lt;祖玛装备兑换积分/@祖玛装备兑换积分&gt;  &lt;祖玛积分兑换卷/@祖玛积分兑换卷&gt;  &lt;极品祖玛兑换/@极品祖玛兑换&gt;  &lt;天之赤月兑换/@天之赤月兑换&gt;\
+&lt;赤月→/FCOLOR=120&gt; &lt;赤月装备兑换积分/@赤月装备兑换积分&gt;  &lt;赤月积分兑换卷/@赤月积分兑换卷&gt;  &lt;极品赤月兑换/@极品赤月兑换&gt;\
+&lt;注意：祖玛积分领取兑换卷有几率获得普通赤月兑换卷&gt;\
+\ \
+   『&lt;升级幸运项链/@升级幸运项链&gt;』  『&lt;装备回收金币/@装备回收金币&gt;』  『&lt;装备回收声望/@装备回收声望&gt;』  『&lt;互换沃玛积分/@互换沃玛积分&gt;』\
+
+..........省略很多不相关的内容
+
+#ELSEACT
+SENDMSG 7 〖提示〗你身上没有可回收装备！
+GOTO @装备回收声望
+
+
+&#125;
+</code></pre>
+<p>注意是添加了一对    <strong>{}</strong></p>
+<p>在<strong>C:\MirServer\Mir200\Envir\Market_Def\QFunction-0.txt</strong>添加如下</p>
+<pre><code>..........省略很多不相关的内容
+[@UserCmd3]
+#CALL [\服务\装备兑换.txt] @main
+..........省略很多不相关的内容
+</code></pre>
+<p><strong>注意：[@UserCmd3]  这里的3是UserCmds.txt中的    回收    3的3, 注意别重复了</strong></p>
+<p>添加到界面快捷</p>
+<p>C:\MirServer\Mir200\Envir\SpecialCmdList.txt</p>
+<pre><code>千里传音喊话    @传
+加入门派    @加入门派
+退出门派    @退出门派
+充值与金币兑换    @充值
+拒绝指定人物私聊    @拒绝
+查看服务器时间    @时间
+修改仓库密码    @修改密码
+设置仓库密码    @设置密码
+将仓库密码锁上    @仓库上锁
+清除仓库密码    @清除密码
+装备兑换        @回收
+</code></pre>
+<p>装备兑换        @回收</p>
+<p>是我添加的  就可以在客户端使用了</p>
+<p>###最后，重启一下传奇的服务器就可以了</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/%E4%BC%A0%E5%A5%87/" rel="tag"># 传奇</a>
+              <a href="/blog/tags/%E7%A7%81%E6%9C%8D/" rel="tag"># 私服</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2022/01/01/%E4%BC%A0%E5%A5%87%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E4%B8%80-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/" rel="prev" title="传奇私服搭建(一) 服务器的基本搭建">
+      <i class="fa fa-chevron-left"></i> 传奇私服搭建(一) 服务器的基本搭建
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2022/01/07/%E9%AD%94%E5%9F%9F%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E7%AB%AF%E8%B7%AF%E5%BE%84%E5%AF%B9%E7%85%A7%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/" rel="next" title="魔域私服搭建_端路径对照详细介绍">
+      魔域私服搭建_端路径对照详细介绍 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="占前钱"
+      src="/blog/images/avatar.png">
+  <p class="site-author-name" itemprop="name">占前钱</p>
+  <div class="site-description" itemprop="description">路漫漫其修远兮，吾将上下而求索</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">占前钱</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/muse.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

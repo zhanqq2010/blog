@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhanqq2010.github.io","root":"/blog/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="account:帐号表, VIP是会员级别 cq_action: npc的脚本动作 cq_ad_log: 飞鸽喊话的记录 cq_ad_queue: 动态存放玩家飞鸽喊话的队列 cq_announce: 导师那公布的信息,level为人物等级,teacherlevel为其导师等级 cq_auction: 拍卖行auction_play是购买者的人物ID,item_id是拍卖品的ID,state是该">
+<meta property="og:type" content="article">
+<meta property="og:title" content="魔域私服搭建_魔域单机数据库表格中文翻译">
+<meta property="og:url" content="https://zhanqq2010.github.io/blog/2022/01/07/%E9%AD%94%E5%9F%9F%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E9%AD%94%E5%9F%9F%E5%8D%95%E6%9C%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E6%A0%BC%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/index.html">
+<meta property="og:site_name" content="Zhanqq&#39;s Notes">
+<meta property="og:description" content="account:帐号表, VIP是会员级别 cq_action: npc的脚本动作 cq_ad_log: 飞鸽喊话的记录 cq_ad_queue: 动态存放玩家飞鸽喊话的队列 cq_announce: 导师那公布的信息,level为人物等级,teacherlevel为其导师等级 cq_auction: 拍卖行auction_play是购买者的人物ID,item_id是拍卖品的ID,state是该">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-07T09:28:10.000Z">
+<meta property="article:modified_time" content="2022-01-07T09:32:15.699Z">
+<meta property="article:author" content="占前钱">
+<meta property="article:tag" content="私服">
+<meta property="article:tag" content="魔域">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zhanqq2010.github.io/blog/2022/01/07/%E9%AD%94%E5%9F%9F%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E9%AD%94%E5%9F%9F%E5%8D%95%E6%9C%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E6%A0%BC%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>魔域私服搭建_魔域单机数据库表格中文翻译 | Zhanqq's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zhanqq's Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">啦啦啦</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zhanqq2010.github.io/blog/2022/01/07/%E9%AD%94%E5%9F%9F%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E9%AD%94%E5%9F%9F%E5%8D%95%E6%9C%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E6%A0%BC%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.png">
+      <meta itemprop="name" content="占前钱">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhanqq's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          魔域私服搭建_魔域单机数据库表格中文翻译
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-07 17:28:10 / 修改时间：17:32:15" itemprop="dateCreated datePublished" datetime="2022-01-07T17:28:10+08:00">2022-01-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E9%AD%94%E5%9F%9F%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">魔域技术</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ol>
+<li>account:帐号表, VIP是会员级别</li>
+<li>cq_action: npc的脚本动作</li>
+<li>cq_ad_log: 飞鸽喊话的记录</li>
+<li>cq_ad_queue: 动态存放玩家飞鸽喊话的队列</li>
+<li>cq_announce: 导师那公布的信息,level为人物等级,teacherlevel为其导师等级</li>
+<li>cq_auction: 拍卖行auction_play是购买者的人物ID,item_id是拍卖品的ID,state是该物品状态(未拍卖,拍卖中,已拍卖)</li>
+<li>cq_auction_system_item 字面上理解是拍卖的系统物品</li>
+<li>cq_bonus: 没用</li>
+<li>cq_bonus_points_type 没用</li>
+<li>cq_business 没用</li>
+<li>cq_card 天晴商城里存的魔石卡</li>
+<li>cq_config 一些表的设置相关</li>
+<li>cq_deluser: 玩家删除人物</li>
+<li>cq_disdain: pk记录</li>
+<li>cq_dropitemrule: 爆率表</li>
+<li>cq_dyna_rank_rec: 宝宝排名后的表（记录的）</li>
+<li>cq_dyna_rank_type 排名设置表</li>
+<li>cq_dynamap: 相关战斗地图</li>
+<li>cq_dynanpc: 系统中能打的NPC</li>
+<li>cq_enemy 仇人</li>
+<li>cq_eudemon 幻兽表（记录的）</li>
+<li>cq_eudemon_auxrbn_rqr 没用</li>
+<li>cq_eudemon_exchg_egg 变蛋需要的魔石</li>
+<li>cq_eudemon_pk_type 幻兽PK?</li>
+<li>cq_eudemon_prize_list 幻兽卖出去的钱 （怎么是空的）</li>
+<li>cq_eudemon_rbn_rqr 合宝宝相关 （副宝宝需要的平分 速度合宝宝都是这里）</li>
+<li>cq_eudemon_rbn_type 主属性表</li>
+<li>cq_family 家族表</li>
+<li>cq_goods 商店表</li>
+<li>cq_grade 幻兽成长表</li>
+<li>cq_generator 刷怪的表</li>
+<li>cq_lottery: 抽奖表</li>
+<li>cq_magic 人物宝宝技能表（记录的）</li>
+<li>cq_magic_timeout 没用的</li>
+<li>cq_magictype 技能配置表</li>
+<li>cq_monstertype 怪物属性表</li>
+<li>cq_item 物品表 （记录的）</li>
+<li>cq_itemaddition 装备附加属性表（+12是加多少攻击 ）</li>
+<li>cq_itemtype 物品属性表</li>
+<li>cq_npc NPC表</li>
+<li>cq_npc_income 收入“地摊城堡</li>
+<li>cq_levexp 人物宝宝经验表</li>
+<li>cq_lifeskilltype 生活技能表 跑商“`<br>cq_passway 传送点 和cq_portal 对应<br>cq_partner 婚姻相关<br>cq_portal 传送门<br>cq_statistic 统计数据值）<br>cq_synattr 军团属性<br>cq_syndicate 军团相关<br>cq_superman 超人（里边没东西）<br>cq_talentgain 得到天赋概率表<br>cq_talenttype 天赋表<br>cq_task NPC对话 type为101必加表<br>cq_taskcomplete 不清楚 没用<br>cq_taskdetail task 被用的记录表 没事的时候可以清空<br>cq_taskdetail_timeout 没用的<br>cq_totem_add 已加过图腾的军团 （记录的）<br>cq_totem_pole_type 军团图腾表<br>cq_track 行动路线<br>cq_trade 没什么用<br>cq_trap 陷阱 （+XP +经验 %多少 的那个）<br>cq_traptype 陷阱类型<br>cq_tutor 师傅存储文件<br>cq_tutorEXP 师傅经验<br>cq_user 人物属性表<br>cq_weapon_skill 武器技能表 （现阶段无用）<br>account ID数据表<br>account_old 初始帐号信息(用于密码找回的吧)<br>ball_card 经验球<br>ball_card_day_count 经验球计数<br>block_list 不知道是什么列表<br>columns_priv 拦目<br>count_stat 服务器组统计<br>cq_action npc的脚本动作<br>cq_ad_log 飞鸽喊话的记录<br>cq_ad_queue 动态存放玩家飞鸽喊话的队列<br>cq_advert_log 广告记录<br>cq_advert_queue 广告的队列<br>cq_announce 导师那公布的信息,level为人物等级,teacherlevel为其导师等级<br>cq_auction 拍卖行auction_play是购买者的人物ID,item_id是拍卖品的ID,state是该物品状态(未拍卖,拍卖中,已拍卖)<br>cq_auction_system_item 字面上理解是拍卖的系统物品<br>cq_bonus 奖励系统,id_account是指被奖励玩家的ID序列<br>cq_bonus_points_type 奖励分类（itemtype是物品分类，bonus_points奖励点数）<br>cq_business 商务摆摊<br>cq_card 充值卡<br>cq_card2 充值卡（不清楚是不是人为故意加的）<br>cq_card3 充值卡（不清楚是不是人为故意加的）<br>cq_collect_rule 收集什么东西的（应该是跟任务有关）<br>cq_config 抽奖配置<br>cq_deluser 删除人物<br>cq_disdain pk记录<br>cq_donation_dynasort_rec 捐款日志<br>cq_dropitemrule 掉落物品的规律<br>cq_dyna_rank_rec 宝宝排名<br>cq_dyna_rank_type 宝宝排名分类<br>cq_dynamap 环保练功场地图?<br>cq_dynanpc 练功场NPC，比赛场NPC，家族比赛NPC，摊位旗NPC<br>cq_enemy 敌人<br>cq_eudemon 玩家幻兽资料库<br>cq_eudemon_auxrbn_rqr 信标<br>cq_eudemon_exchg_egg 玩家的蛋蛋<br>cq_eudemon_pk_type 宠物PK分类<br>cq_eudemon_prize_list 宠物奖励列表<br>cq_eudemon_rbn_rqr 信标<br>cq_eudemon_rbn_type 信标分类<br>cq_eudemon_timeout 宠物到期时间（应该跟灵魂血契有关）<br>cq_eudemon_trainskill_dmg_type 宠物技能吧<br>cq_fact 等待研究<br>cq_family 家族<br>cq_family_attr 家族相关<br>cq_flower 送花记录 player_id 被送花玩家的id flower红玫瑰数量 flower_w白玫瑰数量<br>cq_friend 好友<br>cq_generator 这个应改是刷怪数据库配置文件<br>cq_goods 商品（不知道是不是商店里卖的东西）<br>cq_grade 等级<br>cq_item 玩家所有的物品<br>cq_item_timeout 某个项目到期时间[不知道是不是神之祝福的项目]<br>cq_item_value_type 某个价值类型<br>cq_itemaddition 装备附加属性表<br>cq_itemtype 装备名字和类型（也就是职业相关）<br>cq_keepeffect 记录什么东西的<br>cq_layout 布局<br>cq_layouttype 布局类型<br>cq_leaveword 等待研究<br>cq_levexp 级别经验<br>cq_lifeskilltype 生活技能类型<br>cq_lottery 抽奖奖品设置<br>cq_magic 学习技能<br>cq_magic_timeout 技能相关相关<br>cq_magictype 技能分类表<br>cq_map 地图<br>cq_mercenary_task 雇佣兵的任务<br>cq_mission 任务吧<br>cq_monstertype 怪物属性AI配置表<br>cq_npc 商店了 这个就不用说了<br>cq_npc_income 商店收入<br>cq_partner 好友合伙人 商业伴侣<br>cq_passway 通道<br>cq_password 密码提示问题+答案吧<br>cq_pet 伴侣表也许是结婚用的<br>cq_point_allot 点分配<br>cq_portal 地图与地图直接的链接传送端口<br>cq_quiz 游戏问答<br>cq_rebirth 重生<br>cq_region 城市地区<br>cq_resultantmagic 魔法相关<br>cq_rule 等待研究<br>cq_skill 技巧<br>cq_soulvaluestat 灵魂的什么东西<br>cq_special_status 地位相关[爵位之类的或者是行会的封号]<br>cq_statistic 统计数据值<br>cq_superman 字面理解是超人<br>cq_synattr 具体等待研究<br>cq_syndicate 行会<br>cq_sys_bank 银行（可能是仓库）<br>cq_sys_shop_price 系统商店价格<br>cq_talentgain 人物增益<br>cq_talenttype 增益类型<br>cq_task 字面意思是任务<br>cq_taskcomplete 完成任务人物[防止重复做任务]<br>cq_taskdetail 任务细节<br>cq_taskdetail_timeout 任务细节时间相关<br>cq_totem_add 增加图腾<br>cq_totem_pole_type 图腾柱类型<br>cq_track 轨道<br>cq_trade 贸易<br>cq_trade_auto_finish_type 贸易类型<br>cq_trap 怪物掉的陷阱<br>cq_traptype 怪物掉的陷阱类型<br>cq_tutor 师傅存储文件<br>cq_tutorEXP 师傅经验<br>cq_user 玩家资料库<br>cq_user_timeout 玩家到期时间<br>cq_wanted 通缉<br>cq_weapon_skill 武器技能<br>day_stat_new 当天的统计<br>drop_rule 掉落规则<br>e_money 钱<br>e_money_month 钱<br>e_money_2006 钱<br>e_money11 钱<br>en_card_log 充卡记录<br>en_day_stat 当天统计<br>en_month_stat 每月统计<br>enmy_usecard_award_log 用卡奖励日志<br>money_card 钱卡<br>month_stat_new 本月新统计<br>myball_card 我的点卡<br>myball_card_count 我的点卡计数<br>myball_card_day_count 我的点卡每天计数<br>myball_card_log 我的点卡记录<br>myemail 我的电子邮件<br>myen_card_log 我的点卡日志<br>point 点<br>reg_user 注册用户<br>serial_stat 统计<br>tables_priv 表</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/%E7%A7%81%E6%9C%8D/" rel="tag"># 私服</a>
+              <a href="/blog/tags/%E9%AD%94%E5%9F%9F/" rel="tag"># 魔域</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2022/01/07/%E9%AD%94%E5%9F%9F%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E9%AD%94%E5%9F%9F%E7%A7%81%E6%9C%8D%E4%B8%80%E6%9D%A1%E9%BE%99%E7%89%88%E6%9C%AC%E7%AE%80%E5%8D%95%E4%BF%AE%E6%94%B9%E6%95%99%E7%A8%8B/" rel="prev" title="魔域私服搭建_魔域私服一条龙版本简单修改教程">
+      <i class="fa fa-chevron-left"></i> 魔域私服搭建_魔域私服一条龙版本简单修改教程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2022/01/09/%E9%AD%94%E5%9F%9F%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E8%84%9A%E6%9C%AC%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="next" title="魔域私服搭建_脚本代码解析">
+      魔域私服搭建_脚本代码解析 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="占前钱"
+      src="/blog/images/avatar.png">
+  <p class="site-author-name" itemprop="name">占前钱</p>
+  <div class="site-description" itemprop="description">路漫漫其修远兮，吾将上下而求索</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">占前钱</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/muse.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhanqq2010.github.io","root":"/blog/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="#1. Explain分析示例 DROP DATABASE mytest; CREATE DATABASE mytest; USE mytest;  DROP TABLE IF EXISTS &#96;actor&#96;;  CREATE TABLE &#96;actor&#96; (   &#96;id&#96; int(11) NOT NULL,   &#96;name&#96; varchar(45) DEFAULT NULL,   &#96;update_t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Explain详解">
+<meta property="og:url" content="https://zhanqq2010.github.io/blog/2021/12/02/Explain%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Zhanqq&#39;s Notes">
+<meta property="og:description" content="#1. Explain分析示例 DROP DATABASE mytest; CREATE DATABASE mytest; USE mytest;  DROP TABLE IF EXISTS &#96;actor&#96;;  CREATE TABLE &#96;actor&#96; (   &#96;id&#96; int(11) NOT NULL,   &#96;name&#96; varchar(45) DEFAULT NULL,   &#96;update_t">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-02T15:55:56.000Z">
+<meta property="article:modified_time" content="2021-12-02T18:00:25.177Z">
+<meta property="article:author" content="占前钱">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="Explain">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zhanqq2010.github.io/blog/2021/12/02/Explain%E8%AF%A6%E8%A7%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Explain详解 | Zhanqq's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zhanqq's Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">啦啦啦</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zhanqq2010.github.io/blog/2021/12/02/Explain%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.png">
+      <meta itemprop="name" content="占前钱">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhanqq's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Explain详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-02 23:55:56" itemprop="dateCreated datePublished" datetime="2021-12-02T23:55:56+08:00">2021-12-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-03 02:00:25" itemprop="dateModified" datetime="2021-12-03T02:00:25+08:00">2021-12-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>#1. Explain分析示例</p>
+<pre><code>DROP DATABASE mytest;
+CREATE DATABASE mytest;
+USE mytest;
+
+DROP TABLE IF EXISTS `actor`; 
+CREATE TABLE `actor` ( 
+ `id` int(11) NOT NULL, 
+ `name` varchar(45) DEFAULT NULL, 
+ `update_time` datetime DEFAULT NULL, 
+ PRIMARY KEY (`id`) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `actor` (`id`, `name`, `update_time`) VALUES (1,&#39;a&#39;,&#39;2017-12-22 15:27:18&#39;), (2,&#39;b&#39;,&#39;2017-12-22 15:27:18&#39;), (3,&#39;c&#39;,&#39;2017-12-22 15:27:18&#39;);
+
+
+DROP TABLE IF EXISTS `film`;
+CREATE TABLE `film` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(10) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_name` (`name`) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `film` (`id`, `name`) VALUES (3,&#39;film0&#39;),(1,&#39;film1&#39;),(2,&#39;film2&#39;);
+
+
+DROP TABLE IF EXISTS `film_actor`;
+CREATE TABLE `film_actor` ( 
+    `id` int(11) NOT NULL, 
+    `film_id` int(11) NOT NULL, 
+    `actor_id` int(11) NOT NULL, 
+    `remark` varchar(255) DEFAULT NULL, 
+    PRIMARY KEY (`id`), 
+    KEY `idx_film_actor_id` (`film_id`,`actor_id`) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `film_actor` (`id`, `film_id`, `actor_id`) VALUES (1,1,1),(2,1,2),(3,2,1);
+</code></pre>
+<p>#2. explain中的列<br>例子：</p>
+<pre><code> explain select * from film where id = 2;
+
+set session optimizer_switch=&#39;derived_merge=off&#39;; #关闭mysql5.7新特性对衍生表的合 并优化
+explain select (select 1 from actor where id = 1) from (select * from film where id = 1) der;
+
+set session optimizer_switch=&#39;derived_merge=on&#39;; #还原默认配置
+explain select 1 union all select 1;
+</code></pre>
+<h3 id="1-id"><a href="#1-id" class="headerlink" title="1. id"></a>1. id</h3><pre><code>&gt;id列的编号是 select 的序列号，有几个 select 就有几个id，并且id的顺序是按 select 出现的顺序增长的。 id列越大执行优先级越高，id相同则从上往下执行，id为NULL最后执行。
+</code></pre>
+<h3 id="2-select-type-表示对应行是简单还是复杂的查询。"><a href="#2-select-type-表示对应行是简单还是复杂的查询。" class="headerlink" title="2. select_type:  表示对应行是简单还是复杂的查询。"></a>2. select_type:  表示对应行是简单还是复杂的查询。</h3><pre><code>1. SIMPLE    简单查询。查询不包含子查询和union
+2. PRIMARY: 复杂查询中最外层的 select
+3. DERIVED: 包含在 from 子句中的子查询。MySQL会将结果存放在一个临时表中，也称为派生表（derived的英文含 义）用这个例子来了解
+4. SUBQUERY: 包含在 select 中的子查询（不在 from 子句中）
+5. UNION： 在 union 中的第二个和随后的 select
+</code></pre>
+<h3 id="3-table"><a href="#3-table" class="headerlink" title="3. table"></a>3. table</h3><blockquote>
+<p>这一列表示 explain 的一行正在访问哪个表。 当 from 子句中有子查询时，table列是 <derivenN> 格式，表示当前查询依赖 id=N 的查询，于是先执行 id=N 的查 询。当有 union 时，UNION RESULT 的 table 列的值为&lt;union1,2&gt;，1和2表示参与 union 的 select 行id。</derivenN></p>
+</blockquote>
+<h3 id="4-type列"><a href="#4-type列" class="headerlink" title="4. type列"></a>4. type列</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/mysql/" rel="tag"># mysql</a>
+              <a href="/blog/tags/Explain/" rel="tag"># Explain</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2021/12/02/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E7%B4%A2%E5%BC%95%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="prev" title="深入理解Mysql索引底层数据结构与算法">
+      <i class="fa fa-chevron-left"></i> 深入理解Mysql索引底层数据结构与算法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2021/12/17/deepinos-%E8%A7%A3%E5%86%B3bash%E6%97%A0%E6%B3%95%E8%BF%90%E8%A1%8C32%E4%BD%8D%E7%A8%8B%E5%BA%8F/" rel="next" title="deepinos 解决bash无法运行32位程序">
+      deepinos 解决bash无法运行32位程序 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-id"><span class="nav-number">1.</span> <span class="nav-text">1. id</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-select-type-%E8%A1%A8%E7%A4%BA%E5%AF%B9%E5%BA%94%E8%A1%8C%E6%98%AF%E7%AE%80%E5%8D%95%E8%BF%98%E6%98%AF%E5%A4%8D%E6%9D%82%E7%9A%84%E6%9F%A5%E8%AF%A2%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">2. select_type:  表示对应行是简单还是复杂的查询。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-table"><span class="nav-number">3.</span> <span class="nav-text">3. table</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-type%E5%88%97"><span class="nav-number">4.</span> <span class="nav-text">4. type列</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="占前钱"
+      src="/blog/images/avatar.png">
+  <p class="site-author-name" itemprop="name">占前钱</p>
+  <div class="site-description" itemprop="description">路漫漫其修远兮，吾将上下而求索</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">占前钱</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/muse.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

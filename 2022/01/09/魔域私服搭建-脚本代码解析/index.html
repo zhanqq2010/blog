@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhanqq2010.github.io","root":"/blog/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="#脚本代码解析 101 0 【对话内容】 对话框的提示部分，内容自己添加（也就是介绍累的  102 0 【内容】 【ID】 点【内容】后执行 【id】里面的命令ID为 acction里面的 103 0 【参数】【ID】 弹出需要输入文字的对话框【参数】：【代码】【执行ID】代码解释：10，导师经验；15 ，军团命名 104 0 【三位数字代码】 好像是系统执行的代码，具体代码含义暂时不了解 121">
+<meta property="og:type" content="article">
+<meta property="og:title" content="魔域私服搭建_脚本代码解析">
+<meta property="og:url" content="https://zhanqq2010.github.io/blog/2022/01/09/%E9%AD%94%E5%9F%9F%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E8%84%9A%E6%9C%AC%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="Zhanqq&#39;s Notes">
+<meta property="og:description" content="#脚本代码解析 101 0 【对话内容】 对话框的提示部分，内容自己添加（也就是介绍累的  102 0 【内容】 【ID】 点【内容】后执行 【id】里面的命令ID为 acction里面的 103 0 【参数】【ID】 弹出需要输入文字的对话框【参数】：【代码】【执行ID】代码解释：10，导师经验；15 ，军团命名 104 0 【三位数字代码】 好像是系统执行的代码，具体代码含义暂时不了解 121">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-08T18:36:38.000Z">
+<meta property="article:modified_time" content="2022-01-08T18:38:02.672Z">
+<meta property="article:author" content="占前钱">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zhanqq2010.github.io/blog/2022/01/09/%E9%AD%94%E5%9F%9F%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E8%84%9A%E6%9C%AC%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>魔域私服搭建_脚本代码解析 | Zhanqq's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zhanqq's Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">啦啦啦</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zhanqq2010.github.io/blog/2022/01/09/%E9%AD%94%E5%9F%9F%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E8%84%9A%E6%9C%AC%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.png">
+      <meta itemprop="name" content="占前钱">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhanqq's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          魔域私服搭建_脚本代码解析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-09 02:36:38 / 修改时间：02:38:02" itemprop="dateCreated datePublished" datetime="2022-01-09T02:36:38+08:00">2022-01-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>#脚本代码解析</p>
+<p>101 0 【对话内容】 对话框的提示部分，内容自己添加（也就是介绍累的 </p>
+<p>102 0 【内容】 【ID】 点【内容】后执行 【id】里面的命令ID为 acction里面的</p>
+<p>103 0 【参数】【ID】 弹出需要输入文字的对话框【参数】：【代码】【执行ID】<br>代码解释：10，导师经验；15 ，军团命名</p>
+<p>104 0 【三位数字代码】 好像是系统执行的代码，具体代码含义暂时不了解</p>
+<p>121 0 1 2 系统随即选择一个id_next 还是id_nextfail 的执行，后面的数值越大几率越小 大概几率就是 1/后面的数值</p>
+<p>122 0 【ID】 从param随即选择一个，注意：ID 2个一组，一组需要相同 【id】里面的命令ID为 acction里面的</p>
+<p>123 【参数】 时间 数值 时间判断 【参数】data=0 是年月日时分到年月日时分；data=1 是月日时分到月日时分；</p>
+<p>data=2 是日时分到日时分；data=3 是星期时分到星期时分；data=4 是几点几分到几点几分<br>data=5 每【数值】分钟 到 每数值分钟之间<br>举例： data 3 param 4 00:01 4 23:59 到星期四开始 dedecms.com</p>
+<p>124 1067 结婚</p>
+<p>125 2011 【内容】 GM提示</p>
+<p>126 0 【对话内容】 只有确定的对话框，内容自己添加</p>
+<p>213 1900 【对话内容】 拍卖<br>216 1900 1 拍卖完毕，关闭窗口</p>
+<p>312 0 坐标 效果 例如：1000 846 513 pet31<br>501 【物品ID】 开礼包</p>
+<p>502 【物品ID】 给予 data 里面的物品 ID自己找</p>
+<p>507 0 物品ID 物品ID 数量 收回【物品ID】物品 【数量】个</p>
+<p>508 0 1 0 50 判断空位，第一位数字代表几个空位，最后一个代表类型<br>50，技能栏；52，幻兽背包；</p>
+<p>510 【物品ID】0 1 0 0 0 0 0 0 50 50 0 0 给予 data 里面的物品 ID自己找，param物品附加的属性<br>701 0 50 500000 250000 建立军团，50代表等级，中间代表钱数，后面的不知道</p>
+<p>702 0 解散军团</p>
+<p>717 0 member_title = 【数值】 老大名字1，军团长；2，帮主；3，教主 ；4，会长<br>723 0 【参数/数值】 数值军团等级；+=1 增加军团等级 织梦好，好织梦</p>
+<p>801 0 dropitem 【物品ID】 删除物品<br>0 dropmoney 【数值】 删除金钱</p>
+<p>802 0 check/learn 【技能ID】 check检查幻兽技能，learn学习技能 织梦内容管理系统</p>
+<p>1001 0 【具体条件】 主要是对人物操作，判断符号有 &lt;;=;+=;== 格式【参数】 【符号】 【具体数值】 部分参数：<br>money 金币；e_money 磨石；exp 经验；level 等级；nobility_rank爵位；tutor_level 导师等级；<br>tutor_exp 导师经验；student_exp 学员经验；rankshow 军团荣誉；exploit 功勋； 织梦内容管理系统<br>maxlifepercent 健康状态（估计就是HP值） 本文来自织梦</p>
+<p>1003 0 地图代码 X坐标 Y坐标 传送阵，传送到param的地图坐标上</p>
+<p>1004 0 地图代码 X坐标 Y坐标 %user_map_id %user_map_x %user_map_y 表示玩家回程的坐标</p>
+<p>1010 【数值】 【具体内容】 【数值】：2000 系统公告；2005 个人的；</p>
+<p>1005 0 style 【1-8】 染发的 具体颜色 由数字1-8决定，自己研究去把</p>
+<p>1020 0 check/learn 【技能ID】 check检查人物技能，learn学习技能</p>
+<p>1024 0 离婚 dedecms.com</p>
+<p>1026 0 好像是强制离婚 本文来自织梦</p>
+<p>1025 0 判断是否有配偶</p>
+<p>1027 0 self 【FF07-1】 使用后的外管效果【】里面的自己研究 other65，FF07-1 等等了，自己研究吧懒得写了</p>
+<p>1029 0 play sound/trap.wav 0 0 1 声音调用</p>
+<p>1051 0 导师经验提取完毕</p>
+<p>1080 1006 【命令行】 命令行，有参数 new，begintime reset 本文来自织梦</p>
+<p>1081 3568 begintime reset 同上，具体什么条件由 data决定，判断公式由 param 决定 两者的区别还没找出来</p>
+<p>new</p>
+<p>1046 【数字】 各种窗口，一般对应102后面的，数字代表类型<br>1 商店窗口；5，下达任务；6，未接任务；7，我的任务；8，已接任务<br>13 孵化所 ；14 死亡的幻兽和必要的宝石招魂 ；15 强化幻兽和；16 幻兽仓库 内容来自dedecms<br>21，参与拍卖；22，拍卖；23，锻造（灵魂宝石）；24，锻造（魔魂宝石）；25，锻造（幻魔宝石）<br>27，拍卖仓库；28，鉴定；29 幻兽进化界面；30，重塑幻兽；31 幻兽洗天赋；<br>44，环保练功；47，注入宝石；49，高级锻造 内容来自dedecms</p>
+<p>4001 0 22 30150 600 0 格式解释：状态代码 技能效果百分比 持续时间（单位秒） 这个不清楚<br>效果百分比： 数值-30100 比如 30150 - 30100 就是 50，效果增加 50%<br>状态代码：22 伤害力 ；52 经验增加 ； 47 闪避增加 ； 48 XP恢复速度；49 获得金钱；50 内容来自dedecms</p>
+<p>2006 0 0 0 8700 168 231 1001100 10011 0 幽影巫王 刷怪，前面是怪物的属性</p>
+<p>2008 0 8700 name 幽影巫王 == 0 检查某地图 怪物 数量 织梦内容管理系统</p>
+<p>2009 0 8700 10011 0 幽影巫王</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2022/01/07/%E9%AD%94%E5%9F%9F%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-%E9%AD%94%E5%9F%9F%E5%8D%95%E6%9C%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E6%A0%BC%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/" rel="prev" title="魔域私服搭建_魔域单机数据库表格中文翻译">
+      <i class="fa fa-chevron-left"></i> 魔域私服搭建_魔域单机数据库表格中文翻译
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2022/01/09/%E9%AD%94%E5%9F%9F%E7%A7%81%E6%9C%8D%E6%90%AD%E5%BB%BA-ini%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90/" rel="next" title="魔域私服搭建_ini文件夹的文件解析">
+      魔域私服搭建_ini文件夹的文件解析 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="占前钱"
+      src="/blog/images/avatar.png">
+  <p class="site-author-name" itemprop="name">占前钱</p>
+  <div class="site-description" itemprop="description">路漫漫其修远兮，吾将上下而求索</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">占前钱</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/muse.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
