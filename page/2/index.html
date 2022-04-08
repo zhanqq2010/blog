@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-03 02:00:25" itemprop="dateModified" datetime="2021-12-03T02:00:25+08:00">2021-12-03</time>
+                <time title="修改时间：2022-04-08 21:05:48" itemprop="dateModified" datetime="2022-04-08T21:05:48+08:00">2022-04-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,27 +256,14 @@ CREATE TABLE `film_actor` (
 
 INSERT INTO `film_actor` (`id`, `film_id`, `actor_id`) VALUES (1,1,1),(2,1,2),(3,2,1);
 </code></pre>
-<p>#2. explain中的列<br>例子：</p>
-<pre><code> explain select * from film where id = 2;
-
-set session optimizer_switch=&#39;derived_merge=off&#39;; #关闭mysql5.7新特性对衍生表的合 并优化
-explain select (select 1 from actor where id = 1) from (select * from film where id = 1) der;
-
-set session optimizer_switch=&#39;derived_merge=on&#39;; #还原默认配置
-explain select 1 union all select 1;
-</code></pre>
-<h3 id="1-id"><a href="#1-id" class="headerlink" title="1. id"></a>1. id</h3><pre><code>&gt;id列的编号是 select 的序列号，有几个 select 就有几个id，并且id的顺序是按 select 出现的顺序增长的。 id列越大执行优先级越高，id相同则从上往下执行，id为NULL最后执行。
-</code></pre>
-<h3 id="2-select-type-表示对应行是简单还是复杂的查询。"><a href="#2-select-type-表示对应行是简单还是复杂的查询。" class="headerlink" title="2. select_type:  表示对应行是简单还是复杂的查询。"></a>2. select_type:  表示对应行是简单还是复杂的查询。</h3><pre><code>1. SIMPLE    简单查询。查询不包含子查询和union
-2. PRIMARY: 复杂查询中最外层的 select
-3. DERIVED: 包含在 from 子句中的子查询。MySQL会将结果存放在一个临时表中，也称为派生表（derived的英文含 义）用这个例子来了解
-4. SUBQUERY: 包含在 select 中的子查询（不在 from 子句中）
-5. UNION： 在 union 中的第二个和随后的 select
-</code></pre>
-<h3 id="3-table"><a href="#3-table" class="headerlink" title="3. table"></a>3. table</h3><blockquote>
-<p>这一列表示 explain 的一行正在访问哪个表。 当 from 子句中有子查询时，table列是 <derivenN> 格式，表示当前查询依赖 id=N 的查询，于是先执行 id=N 的查 询。当有 union 时，UNION RESULT 的 table 列的值为&lt;union1,2&gt;，1和2表示参与 union 的 select 行id。</derivenN></p>
-</blockquote>
-<h3 id="4-type列"><a href="#4-type列" class="headerlink" title="4. type列"></a>4. type列</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2021/12/02/Explain%E8%AF%A6%E8%A7%A3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -318,10 +305,16 @@ explain select 1 union all select 1;
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-12-02 16:34:30 / 修改时间：23:53:33" itemprop="dateCreated datePublished" datetime="2021-12-02T16:34:30+08:00">2021-12-02</time>
+              <time title="创建时间：2021-12-02 16:34:30" itemprop="dateCreated datePublished" datetime="2021-12-02T16:34:30+08:00">2021-12-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-08 21:07:39" itemprop="dateModified" datetime="2022-04-08T21:07:39+08:00">2022-04-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -387,11 +380,14 @@ explain select 1 union all select 1;
 <li>正常情况下需要查询6次才能查询到结果</li>
 <li>二叉树只要2两次就能查询到结果</li>
 </ul>
-<p>#2. 千万级数据表如何用B+树索引快速查找<br>主键  联合索引<br>#3. 聚集索引&amp;聚簇索引&amp;稀疏索引到底是什么<br>聚集索引：叶节点包含了完整的数据记录</p>
-<p>#4. 为什么DBA总推荐使用自增主键做索引</p>
-<p>#5. 联合索引底层数据结构又是怎样的<br>索引最左前缀原理</p>
-<p>#6. mysql最左前缀优化原则是怎么回事</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2021/12/02/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E7%B4%A2%E5%BC%95%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -669,10 +665,16 @@ explain select 1 union all select 1;
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-12-01 09:14:57 / 修改时间：10:38:01" itemprop="dateCreated datePublished" datetime="2021-12-01T09:14:57+08:00">2021-12-01</time>
+              <time title="创建时间：2021-12-01 09:14:57" itemprop="dateCreated datePublished" datetime="2021-12-01T09:14:57+08:00">2021-12-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-08 21:06:37" itemprop="dateModified" datetime="2022-04-08T21:06:37+08:00">2022-04-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -738,62 +740,14 @@ public class LockTest &#123;
 <blockquote>
 <p>19907261</p>
 </blockquote>
-<p><strong>解决办法1</strong>：increase()上加synchronized</p>
-<pre><code>package com.zqq.concurrent.lock;
-
-public class LockTest &#123;
-    public static void main(String[] args) &#123;
-        TestA testA = new TestA();
-        Thread t1 = new Thread(() -&gt; &#123;
-            for (int i = 0; i &lt; 10000000; i++) &#123;
-                testA.increase();
-            &#125;
-        &#125;);
-        t1.start();
-
-        for (int i = 0; i &lt; 10000000; i++) &#123;
-            testA.increase();
-        &#125;
-        try &#123;
-            t1.join();  //等待子线程执行完 再执行下面的打印
-        &#125; catch (InterruptedException e) &#123;
-            e.printStackTrace();
-        &#125;
-        System.out.println(testA.getNum());
-    &#125;
-
-
-    static class TestA &#123;
-        int num = 0;
-
-        public int getNum() &#123;
-            return num;
-        &#125;
-
-        public synchronized void increase()&#123;
-            num++;
-        &#125;
-    &#125;
-&#125;
-</code></pre>
-<p>锁：互斥锁， 悲观锁， 同步锁， 重量级锁</p>
-<p>synchronized会锁住LockTest对象的monitor，此时的synchronized是重量级锁</p>
-<p>重量级锁</p>
-<blockquote>
-<p>synchronized关键字并非一开始就该对象加上重量级锁，也是从偏向锁，轻量级锁，再到重量级锁的过程。这个过程也告诉我们，假如我们一开始就知道某个同步代码块的竞争很激烈、很慢的话，那么我们一开始就应该使用重量级锁了，从而省掉一些锁转换的开销。</p>
-</blockquote>
-<blockquote>
-<p>互斥锁(重量级锁)也称为阻塞同步、悲观锁</p>
-</blockquote>
-<blockquote>
-<p>重量级锁是依赖对象内部的monitor锁来实现的，而monitor又依赖操作系统的MutexLock(互斥锁)来实现的，所以重量级锁也称为互斥锁</p>
-</blockquote>
-<p><strong>为什么重量级线程开销很大的？</strong></p>
-<blockquote>
-<p>当系统检查到锁是重量级锁之后，会把等待想要获得锁的线程进行阻塞，被阻塞的线程不会消耗cpu。但是阻塞或者唤醒一个线程时，都需要操作系统来帮忙，这就需要从用户态转换到内核态，而转换状态是需要消耗很多时间的，有可能比用户执行代码的时间还要长。</p>
-</blockquote>
-<p>CAS(compare and swap):比较与交换   无锁 自旋锁 乐观锁  轻量级锁</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2021/12/01/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%94%81-%E4%B8%80-%E4%B9%8B%E4%BB%8Ehotspot%E6%BA%90%E7%A0%81%E4%B8%8B%E7%9C%8B%E5%B9%B6%E5%8F%91%E5%90%8C%E6%AD%A5%E5%8E%9F%E8%AF%AD%E8%AE%BE%E8%AE%A1%E6%9C%BA%E5%88%B6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
