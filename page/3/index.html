@@ -163,6 +163,538 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zhanqq2010.github.io/blog/2021/12/02/spring%E5%BA%95%E5%B1%82%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.png">
+      <meta itemprop="name" content="占前钱">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhanqq's Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/12/02/spring%E5%BA%95%E5%B1%82%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" class="post-title-link" itemprop="url">spring底层核心原理解析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-02 15:37:45 / 修改时间：15:38:45" itemprop="dateCreated datePublished" datetime="2021-12-02T15:37:45+08:00">2021-12-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zhanqq2010.github.io/blog/2021/12/01/jdk6%20jdk7%20jdk8%20Memory%20Model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.png">
+      <meta itemprop="name" content="占前钱">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhanqq's Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/12/01/jdk6%20jdk7%20jdk8%20Memory%20Model/" class="post-title-link" itemprop="url">jdk6、jdk7、jdk8内存模型对比</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-01 20:15:12" itemprop="dateCreated datePublished" datetime="2021-12-01T20:15:12+08:00">2021-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-02 09:58:17" itemprop="dateModified" datetime="2021-12-02T09:58:17+08:00">2021-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>#1. Java内存模型和JVM内存模型</p>
+<p>Java语言规范中提到过,JVM中存在一个**主内存(Mian Memory或者Java Heap Memory)<strong>，java中所有的变量都是存在主内存中的，对所有的线程进行共享，而每个线程又有自己的</strong>工作内存(Wroking Memory)**，工作内存保存的是主内存某些变量的拷贝，线程对所有变量的操作都是发生在工作内存的，而线程之间是不能直接相互访问，变量在程序中的传递，是通过主内存来完成的</p>
+<p>JVM内存(1.7)模型如下图所示</p>
+<blockquote>
+<p>主内存 = 堆 + 方法区</p>
+</blockquote>
+<blockquote>
+<p>工作内存 = 栈(Hotspot虚拟机把本地方法栈也算入java虚拟机栈)</p>
+</blockquote>
+<p>##2. JDK1.6、JDK1.7、JDK1.8 内存模型对比图</p>
+<p><img src="/blog/2021/12/01/jdk6%20jdk7%20jdk8%20Memory%20Model/jmm.jpg"></p>
+<p>上图是JDK 1.6、1.7、1.8 的内存模型演变过程，其实这个内存模型就是 JVM 运行时数据区依照JVM虚拟机规范的具体实现过程。</p>
+<ul>
+<li><p>JDK 1.6：程序计数器、Java虚拟机栈、本地方法栈、堆、方法区[永久代]（字符串常量池、静态变量、运行时常量池、类常量池）</p>
+</li>
+<li><p>JDK 1.7：程序计数器、Java虚拟机栈、本地方法栈、堆（字符串常量、静态变量）、方法区[永久代]（运行时常量池、类常量池）</p>
+</li>
+<li><p>JDK 1.8：程序计数器、Java虚拟机栈、本地方法栈、堆（字符串常量）、元数据（静态变量、运行时常量池、类常量池）</p>
+</li>
+</ul>
+<p><strong>注意：在jdk8以前，HotSpot方法区存放在永久代上，永久代跟堆在逻辑上是隔离的但在物理内存上是连续的，jdk8及以后方法区存放在元数据区，同时，元空间不在与堆在物理内存上连续。方法区只是理论上的一个规范，永久代和元空间是实现方法区的具体地方</strong></p>
+<p><strong>常量池：</strong>包括final修饰的变量、字面量、类和接口全限定名、字段、方法名称以及修饰符等永恒不变的东西。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zhanqq2010.github.io/blog/2021/12/01/Understand%20volitale%20correctly%20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.png">
+      <meta itemprop="name" content="占前钱">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhanqq's Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/12/01/Understand%20volitale%20correctly%20/" class="post-title-link" itemprop="url">正确理解volitate</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-01 11:39:37 / 修改时间：19:59:17" itemprop="dateCreated datePublished" datetime="2021-12-01T11:39:37+08:00">2021-12-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>#1.什么是volitale</p>
+<p> 它是<strong>java的关键字</strong>，主要的作用有两个</p>
+<ol>
+<li><strong>保证变量的内存可见性</strong></li>
+<li><strong>禁止指令重排序</strong></li>
+</ol>
+<p>JMM（Java Memory Model）：Java 内存模型<br>主内存<br>工作内存</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zhanqq2010.github.io/blog/2021/12/01/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%94%81-%E4%B8%80-%E4%B9%8B%E4%BB%8Ehotspot%E6%BA%90%E7%A0%81%E4%B8%8B%E7%9C%8B%E5%B9%B6%E5%8F%91%E5%90%8C%E6%AD%A5%E5%8E%9F%E8%AF%AD%E8%AE%BE%E8%AE%A1%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.png">
+      <meta itemprop="name" content="占前钱">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhanqq's Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/12/01/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%94%81-%E4%B8%80-%E4%B9%8B%E4%BB%8Ehotspot%E6%BA%90%E7%A0%81%E4%B8%8B%E7%9C%8B%E5%B9%B6%E5%8F%91%E5%90%8C%E6%AD%A5%E5%8E%9F%E8%AF%AD%E8%AE%BE%E8%AE%A1%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">多线程与锁(一)之从hotspot源码下看并发同步原语设计机制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-01 09:14:57" itemprop="dateCreated datePublished" datetime="2021-12-01T09:14:57+08:00">2021-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-08 21:06:37" itemprop="dateModified" datetime="2022-04-08T21:06:37+08:00">2022-04-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>#1.示例<br>如下代码 本来期望的结果是20000000</p>
+<pre><code>package com.zqq.concurrent.lock;
+
+public class LockTest &#123;
+    public static void main(String[] args) &#123;
+        TestA testA = new TestA();
+        Thread t1 = new Thread(() -&gt; &#123;
+            for (int i = 0; i &lt; 10000000; i++) &#123;
+                testA.increase();
+            &#125;
+        &#125;);
+        t1.start();
+
+
+        //主线程再执行10000000次
+        for (int i = 0; i &lt; 10000000; i++) &#123;
+            testA.increase();
+        &#125;
+        try &#123;
+            t1.join();  //等待子线程执行完 再执行下面的打印
+        &#125; catch (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125;
+        System.out.println(testA.getNum());
+    &#125;
+
+
+    static class TestA &#123;
+        int num = 0;
+
+        public int getNum() &#123;
+            return num;
+        &#125;
+
+        public void increase()&#123;
+            num++;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p><strong>执行的结果</strong></p>
+<blockquote>
+<p>19907261</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2021/12/01/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%94%81-%E4%B8%80-%E4%B9%8B%E4%BB%8Ehotspot%E6%BA%90%E7%A0%81%E4%B8%8B%E7%9C%8B%E5%B9%B6%E5%8F%91%E5%90%8C%E6%AD%A5%E5%8E%9F%E8%AF%AD%E8%AE%BE%E8%AE%A1%E6%9C%BA%E5%88%B6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zhanqq2010.github.io/blog/2021/12/01/Build%20Hexo%20Blog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.png">
+      <meta itemprop="name" content="占前钱">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhanqq's Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/12/01/Build%20Hexo%20Blog/" class="post-title-link" itemprop="url">Hexo博客搭建</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-01 01:32:22" itemprop="dateCreated datePublished" datetime="2021-12-01T01:32:22+08:00">2021-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-02 07:38:28" itemprop="dateModified" datetime="2021-12-02T07:38:28+08:00">2021-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/blog/" itemprop="url" rel="index"><span itemprop="name">blog</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-环境装备"><a href="#1-环境装备" class="headerlink" title="1.环境装备"></a>1.环境装备</h1><ul>
+<li>安装node.js</li>
+<li>安装Git</li>
+</ul>
+<p>具体参照：</p>
+<p>博客：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/" title="https://hexo.io/zh-cn/docs/">https://hexo.io/zh-cn/docs/</a><br>next主题：<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next" title="https://github.com/theme-next/hexo-theme-next">https://github.com/theme-next/hexo-theme-next</a></p>
+<h1 id="2-安装-Hexo"><a href="#2-安装-Hexo" class="headerlink" title="2.安装 Hexo"></a>2.安装 Hexo</h1><pre><code>$ npm install -g hexo-cli
+</code></pre>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2021/12/01/Build%20Hexo%20Blog/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zhanqq2010.github.io/blog/2021/12/01/Java%20Interview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.png">
+      <meta itemprop="name" content="占前钱">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhanqq's Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/12/01/Java%20Interview/" class="post-title-link" itemprop="url">java面试八股文</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-01 00:40:55" itemprop="dateCreated datePublished" datetime="2021-12-01T00:40:55+08:00">2021-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-02 07:49:22" itemprop="dateModified" datetime="2021-12-02T07:49:22+08:00">2021-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java面向对象有哪些特征，如何应用"><a href="#Java面向对象有哪些特征，如何应用" class="headerlink" title="Java面向对象有哪些特征，如何应用"></a><strong>Java面向对象有哪些特征，如何应用</strong></h1><p>​   面向对象编程是利用类和对象编程的一种思想。万物可归类，类是对于世界事物的高度抽象 ，不同的事物之间有不同的关系 ，一个类自身与外界的封装关系，一个父类和子类的继承关系， 一个类和多个类的多态关系。万物皆对象，对象是具体的世界事物，面向对象的三大特征封装，继承，多态。封装，封装说明一个类行为和属性与其他类的关系，低耦合，高内聚；继承是父类和子类的关系，多态说的是类与类的关系。</p>
+<p>​   封装隐藏了类的内部实现机制，可以在不影响使用的情况下改变类的内部结构，同时也保护了数据。对外界而已它的内部细节是隐藏的，暴露给外界的只是它的访问方法。属性的封装：使用者只能通过事先定制好的方法来访问数据，可以方便地加入逻辑控制，限制对属性的 不合理操作；方法的封装：使用者按照既定的方式调用方法，不必关心方法的内部实现，便于使用； 便于修改，增强 代码的可维护性；</p>
+<p>​   继承是从已有的类中派生出新的类，新的类能吸收已有类的数据属性和行为，并能扩展新的能力。在本质上是特殊~一般的关系，即常说的is-a关系。子类继承父类，表明子类是一种特殊的父类，并且具有父类所不具有的一些属性或方法。从多种实现类中抽象出一个基类，使其具备多种实现类的共同特性 ，当实现类用extends关键字继承了基类（父类）后，实现类就具备了这些相同的属性。继承的类叫做子类（派生类或者超类），被继承的类叫做父类（或者基类）。比如从猫类、狗类、虎类中可以抽象出一个动物类，具有和猫、狗、虎类的共同特性（吃、跑、叫等）。Java通过extends关键字来实现继承，父类中通过private定义的变量和方法不会被继承，不能在子类中直接操作父类通过private定义的变量以及方法。继承避免了对一般类和特殊类之间共同特征进行的重复描述，通过继承可以清晰地表达每一项共同特征所适应的概念范围，在一般类中定义的属性和操作适应于这个类本身以及它以下的每一层特殊类的全部对象。运用继承原则使得系统模型比较简练也比较清晰。</p>
+<p>​   相比于封装和继承，Java多态是三大特性中比较难的一个，封装和继承最后归结于多态， 多态指的是类和类的关系，两个类由继承关系，存在有方法的重写，故而可以在调用时有父类引用指向子类对象。多态必备三个要素：继承，重写，父类引用指向子类对象。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2021/12/01/Java%20Interview/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zhanqq2010.github.io/blog/2021/12/01/npm%201%20package%20is%20looking%20for%20funding/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -401,7 +933,7 @@ hexo-site@0.0.0
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -414,7 +946,7 @@ hexo-site@0.0.0
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
